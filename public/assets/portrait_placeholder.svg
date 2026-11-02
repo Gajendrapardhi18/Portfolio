@@ -1,0 +1,17 @@
+<svg width="400" height="533" viewBox="0 0 400 533" xmlns="http://www.w3.org/2000/svg">
+  <rect width="400" height="533" fill="#1a1a1a"/>
+  <!-- Body/suit shape -->
+  <ellipse cx="200" cy="360" rx="130" ry="100" fill="#222"/>
+  <rect x="70" y="360" width="260" height="180" fill="#222"/>
+  <!-- Head circle -->
+  <circle cx="200" cy="200" r="80" fill="#2a2a2a"/>
+  <!-- Simple face lines -->
+  <circle cx="178" cy="195" r="6" fill="#444"/>
+  <circle cx="222" cy="195" r="6" fill="#444"/>
+  <path d="M182 220 Q200 235 218 220" stroke="#444" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+  <!-- Label -->
+  <text x="200" y="490" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="12" fill="#555" letter-spacing="2">REPLACE WITH PHOTO</text>
+  <!-- Border accent line -->
+  <rect x="0" y="0" width="4" height="533" fill="#00c853" opacity="0.6"/>
+</svg>
+

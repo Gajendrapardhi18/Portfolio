@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gajendra Pardhi – Full‑Stack Developer Portfolio</title>
+  <link rel="stylesheet" href="/style.css" />
+  <!-- React & Babel CDN -->
+  <script crossorigin src="https://unpkg.com/react@18/umd/react.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js"></script>
+  <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+  <div id="root"></div>
+  <script type="text/babel" data-type="module">
+    const { useState } = React;
+
+    const projects = [
+      {
+        id: 1,
+        title: "Digital Body Training Management (DBTM)",
+        category: "Professional",
+        tech: ".NET Core 7, EF Core, SQL Server, REST APIs, Flutter, Dart",
+        description: "Full‑stack trainer‑trainee management platform deployed across 3+ centres. Reduces onboarding time by ~40% and provides push‑notification reminders.",
+        image: "https://via.placeholder.com/400x250?text=DBTM",
+        link: "#",
+      },
+      {
+        id: 2,
+        title: "Cooperative Banking System",
+        category: "Professional",
+        tech: ".NET Core, EF Core, SQL Server, REST APIs",
+        description: "Recursive tree‑structured account hierarchy supporting 500+ nodes, with CTE‑based SQL queries. Improves report generation speed by ~30%.",
+        image: "https://via.placeholder.com/400x250?text=Banking",
+        link: "#",
+      },
+      {
+        id: 3,
+        title: "Gym Management System",
+        category: "Professional",
+        tech: ".NET Core, EF Core, SQL Server, REST APIs",
+        description: "8+ API endpoints for member registration, subscription lifecycle, and health‑metric tracking. JWT‑based RBAC and xUnit tests.",
+        image: "https://via.placeholder.com/400x250?text=Gym",
+        link: "#",
+      },
+      {
+        id: 4,
+        title: "Peakspot – Sports Performance Platform",
+        category: "Professional",
+        tech: "FastAPI, PostgreSQL, Supabase, React, TypeScript",
+        description: "A platform for athletes to log workouts and view performance analytics. Demonstrates end‑to‑end API design and real‑time charts.",
+        image: "https://via.placeholder.com/400x250?text=Peakspot",
+        link: "#project-4",
+      },
+      {
+        id: 5,
+        title: "Attendance Management SaaS",
+        category: "Personal",
+        tech: "Flutter, Firebase, Cloud Functions",
+        description: "Cross‑platform mobile app for employee attendance tracking with QR‑code check‑in and admin dashboards.",
+        image: "https://via.placeholder.com/400x250?text=Attendance",
+        link: "#",
+      },
+    ];
+
+    const App = () => {
+      return (
+        <div className="container">
+          {/* LEFT COLUMN */}
+          <aside className="sidebar">
+            <div className="profile-card">
+              <img src="/assets/portrait_placeholder.svg" alt="Portrait placeholder" className="portrait" />
+              <h1 className="name">Gajendra Pardhi</h1>
+              <p className="title">Full‑Stack Software Developer</p>
+              <nav className="nav">
+                <a href="#about">About</a>
+                <a href="#projects">Projects</a>
+                <a href="#skills">Skills</a>
+                <a href="#contact">Contact</a>
+              </nav>
+              <div className="hero">
+                <h2>Building Systems Behind the <span className="highlight">Interface</span>.</h2>
+                <p className="description">
+                  I design and develop scalable backend systems and cross‑platform mobile applications, transforming complex requirements into reliable software solutions.
+                </p>
+                <div className="buttons">
+                  <a href="#projects" className="btn primary">View My Work</a>
+                  <a href="/ .NET_Resume.pdf" download className="btn secondary">Download .NET Resume</a>
+                  <a href="/Flutter_Resume.pdf" download className="btn secondary">Download Flutter Resume</a>
+                </div>
+              </div>
+            </div>
+          </aside>
+
+          {/* RIGHT COLUMN */}
+          <main className="main-content">
+            <section id="projects" className="section">
+              <h2 className="section-title">Projects</h2>
+              <div className="grid">
+                {projects.map(p => (
+                  <div key={p.id} className={`card ${p.category.toLowerCase()}`}>
+                    <img src={p.image} alt={p.title} className="card-img" />
+                    <div className="card-body">
+                      <h3 className="card-title">{p.title}</h3>
+                      <p className="card-tech"><strong>Tech:</strong> {p.tech}</p>
+                      <p className="card-desc">{p.description}</p>
+                      <a href={`#project-${p.id}-detail`} className="card-link">Learn more</a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+            {/* Project detail sections (hidden until linked) */}
+            {projects.map(p => (
+              <section key={p.id} id={`project-${p.id}-detail`} className="project-detail section">
+                <h2 className="section-title">{p.title}</h2>
+                <img src={p.image} alt={p.title} className="detail-img" />
+                <p><strong>Category:</strong> {p.category}</p>
+                <p><strong>Technologies:</strong> {p.tech}</p>
+                <p>{p.description}</p>
+                <a href="#projects" className="btn secondary">Back to Projects</a>
+              </section>
+            ))}
+              <h2 className="section-title">Projects</h2>
+              <div className="grid">
+                {projects.map(p => (
+                  <div key={p.id} className={`card ${p.category.toLowerCase()}`}>
+                    <img src={p.image} alt={p.title} className="card-img" />
+                    <div className="card-body">
+                      <h3 className="card-title">{p.title}</h3>
+                      <p className="card-tech"><strong>Tech:</strong> {p.tech}</p>
+                      <p className="card-desc">{p.description}</p>
+                      <a href={p.link} className="card-link">Learn more</a>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </section>
+
+            <section id="skills" className="section">
+              <h2 className="section-title">Technical Skills</h2>
+              <pre className="skills-block">
+{`Programming Languages: C#, Dart, JavaScript, HTML, CSS
+Frameworks: .NET Core 7/8, ASP.NET MVC, EF Core, Flutter, Bootstrap, Provider, Riverpod
+APIs & Auth: REST, JWT, Swagger, AJAX
+Databases: SQL Server, PostgreSQL, Supabase, PostGIS, LINQ
+Testing: xUnit, Postman
+Architecture: SOLID, DI, Repository, Clean Architecture, Agile/Scrum
+Tools: Visual Studio, Git, Android Studio`}
+              </pre>
+            </section>
+
+            <section id="education" className="section">
+              <h2 className="section-title">Education & Certifications</h2>
+              <ul className="list">
+                <li>B.Tech Information Technology – Rashtrasant Tukadoji Maharaj Nagpur University (2024) – CGPA 7.7</li>
+                <li>Project Management Simulation – Accenture (Forage)</li>
+                <li>Data Analytics & Visualization Simulation – Accenture (Forage)</li>
+              </ul>
+            </section>
+
+            <section id="contact" className="section contact">
+              <h2 className="section-title">Contact</h2>
+              <p>Email: <a href="mailto:gajendraspardhi@gmail.com">gajendraspardhi@gmail.com</a></p>
+              <p>Phone: +91 9579451647</p>
+              <p>Location: Nagpur, Maharashtra, India</p>
+              <p>LinkedIn: <a href="https://linkedin.com/in/gajendra-pardhi-47916b208" target="_blank" rel="noopener">linkedin.com/in/gajendra-pardhi-47916b208</a></p>
+            </section>
+          </main>
+        </div>
+      );
+    };
+
+    ReactDOM.createRoot(document.getElementById('root')).render(<App />);
+  </script>
+</body>
+</html>
+

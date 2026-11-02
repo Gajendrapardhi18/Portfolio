@@ -35,11 +35,15 @@ export const InteractivePortrait: React.FC<Props> = ({ defaultSrc, hoverSrc, alt
   // Record input device type on contact
   const handlePointerDown = (e: React.PointerEvent) => {
     lastPointerTypeRef.current = (e.pointerType as 'mouse' | 'touch' | 'pen') || 'mouse';
+    if (e.pointerType === 'touch' || e.pointerType === 'pen') {
+      setIsHovered(false);
+    }
   };
 
   // Mobile / Touch: First tap switches to image 2; second tap switches back to image 1
   const handleClick = () => {
     if (lastPointerTypeRef.current === 'touch' || lastPointerTypeRef.current === 'pen') {
+      setIsHovered(false);
       setIsToggled((prev) => !prev);
     }
   };

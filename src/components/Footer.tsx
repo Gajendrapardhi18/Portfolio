@@ -34,10 +34,18 @@ export const Footer: React.FC = () => {
             <a href="mailto:gajendraspardhi@gmail.com" className="footer-link">
               Email
             </a>
-            <a href="/.NET_Resume.pdf" download className="footer-link">
+            <a
+              href={`${import.meta.env.BASE_URL}.NET_Resume.pdf`}
+              download
+              className="footer-link"
+            >
               .NET CV
             </a>
-            <a href="/Flutter_Resume.pdf" download className="footer-link">
+            <a
+              href={`${import.meta.env.BASE_URL}Flutter_Resume.pdf`}
+              download
+              className="footer-link"
+            >
               Flutter CV
             </a>
           </div>

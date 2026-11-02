@@ -23,7 +23,7 @@ const Sidebar: React.FC = () => {
       {/* Portrait */}
       <div className="portrait-wrapper">
         <img
-          src="/assets/gajendra_portrait.jpg"
+          src={`${import.meta.env.BASE_URL}assets/gajendra_portrait.jpg`}
           alt="Gajendra Pardhi — Full-Stack Software Developer"
         />
       </div>

@@ -39,10 +39,10 @@ const Contact: React.FC = () => {
 
       {/* Resume downloads */}
       <div className="resume-row">
-        <a href="/.NET_Resume.pdf" download className="btn btn-secondary">
+        <a href={`${import.meta.env.BASE_URL}.NET_Resume.pdf`} download className="btn btn-secondary">
           ↓ .NET Developer Resume
         </a>
-        <a href="/Flutter_Resume.pdf" download className="btn btn-secondary">
+        <a href={`${import.meta.env.BASE_URL}Flutter_Resume.pdf`} download className="btn btn-secondary">
           ↓ Flutter Developer Resume
         </a>
       </div>

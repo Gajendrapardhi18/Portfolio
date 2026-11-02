@@ -8,6 +8,7 @@ interface Props {
 
 export const Header: React.FC<Props> = ({ theme, onToggleTheme }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
+  const base = import.meta.env.BASE_URL;
 
   const handleNavClick = () => setMobileOpen(false);
 
@@ -33,10 +34,10 @@ export const Header: React.FC<Props> = ({ theme, onToggleTheme }) => {
           {/* Desktop Actions: Theme Toggle + Resume Downloads */}
           <div className="header-actions">
             <ThemeToggle theme={theme} onToggle={onToggleTheme} />
-            <a href="/.NET_Resume.pdf" download className="btn btn-ghost btn-sm">
+            <a href={`${base}.NET_Resume.pdf`} download className="btn btn-ghost btn-sm">
               .NET CV ↓
             </a>
-            <a href="/Flutter_Resume.pdf" download className="btn btn-outline btn-sm">
+            <a href={`${base}Flutter_Resume.pdf`} download className="btn btn-outline btn-sm">
               Flutter CV ↓
             </a>
           </div>
@@ -65,10 +66,10 @@ export const Header: React.FC<Props> = ({ theme, onToggleTheme }) => {
           <a href="#education" className="mobile-nav-link" onClick={handleNavClick}>Education</a>
           <a href="#contact" className="mobile-nav-link" onClick={handleNavClick}>Contact</a>
           <div className="mobile-nav-actions">
-            <a href="/.NET_Resume.pdf" download className="btn btn-ghost btn-sm">
+            <a href={`${base}.NET_Resume.pdf`} download className="btn btn-ghost btn-sm">
               .NET CV ↓
             </a>
-            <a href="/Flutter_Resume.pdf" download className="btn btn-outline btn-sm">
+            <a href={`${base}Flutter_Resume.pdf`} download className="btn btn-outline btn-sm">
               Flutter CV ↓
             </a>
           </div>

@@ -6,6 +6,8 @@ interface Props {
 }
 
 export const Hero: React.FC<Props> = ({ onScrollToProjects }) => {
+  const base = import.meta.env.BASE_URL;
+
   return (
     <section id="home" className="hero-section">
       <div className="container">
@@ -40,10 +42,10 @@ export const Hero: React.FC<Props> = ({ onScrollToProjects }) => {
               <button onClick={onScrollToProjects} className="btn btn-primary">
                 View Projects →
               </button>
-              <a href="/.NET_Resume.pdf" download className="btn btn-outline">
+              <a href={`${base}.NET_Resume.pdf`} download className="btn btn-outline">
                 Download .NET CV ↓
               </a>
-              <a href="/Flutter_Resume.pdf" download className="btn btn-ghost">
+              <a href={`${base}Flutter_Resume.pdf`} download className="btn btn-ghost">
                 Download Flutter CV ↓
               </a>
             </div>
@@ -67,8 +69,8 @@ export const Hero: React.FC<Props> = ({ onScrollToProjects }) => {
           {/* Right: Interactive Portrait with Crimson Backdrop */}
           <div className="hero-portrait-col">
             <InteractivePortrait
-              defaultSrc="/assets/gajendra-default.jpeg"
-              hoverSrc="/assets/gajendra-hover.jpeg"
+              defaultSrc={`${base}assets/gajendra-default.jpeg`}
+              hoverSrc={`${base}assets/gajendra-hover.jpeg`}
               alt="Illustrated portrait of Gajendra Pardhi, Associate Software Developer with glasses against a crimson background"
             />
           </div>

@@ -211,10 +211,18 @@ export const ContactSection: React.FC = () => {
             <div className="contact-resume-box">
               <span className="contact-resume-title">Curriculum Vitae</span>
               <div className="contact-resume-btns">
-                <a href="/.NET_Resume.pdf" download className="btn btn-outline btn-sm">
+                <a
+                  href={`${import.meta.env.BASE_URL}.NET_Resume.pdf`}
+                  download
+                  className="btn btn-outline btn-sm"
+                >
                   .NET Core CV ↓
                 </a>
-                <a href="/Flutter_Resume.pdf" download className="btn btn-ghost btn-sm">
+                <a
+                  href={`${import.meta.env.BASE_URL}Flutter_Resume.pdf`}
+                  download
+                  className="btn btn-ghost btn-sm"
+                >
                   Flutter CV ↓
                 </a>
               </div>

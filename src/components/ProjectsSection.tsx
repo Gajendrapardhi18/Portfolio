@@ -37,6 +37,9 @@ export const ProjectsSection: React.FC<Props> = ({ projects, onSelectProject }) 
               <div className="project-card-top">
                 <span className="project-number">{project.number}</span>
                 <div className="project-badges">
+                  {project.appType && (
+                    <span className="badge badge-app-type">{project.appType}</span>
+                  )}
                   {project.isProfessional ? (
                     <span className="badge badge-professional">Professional</span>
                   ) : (

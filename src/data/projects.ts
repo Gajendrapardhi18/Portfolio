@@ -6,43 +6,155 @@ export interface Project {
   category: 'Professional' | 'Personal / In Development';
   isProfessional: boolean;
   categoryTag: string;
+  appType?: string;
   tech: string[];
   description: string;
   longDescription: string;
   achievements: string[];
+  // Enhanced Case Study fields
+  purpose?: string;
+  responsibilities?: string[];
+  architecture?: string[];
+  deviceIntegration?: string[];
+  technicalChallenges?: string[];
+  projectStatus?: string;
+  accuracyNote?: string;
 }
 
 const projects: Project[] = [
   {
     id: 1,
     number: '01',
-    title: 'DBTM – Digital Body Training Management',
-    subtitle: 'Enterprise Trainer–Trainee Management Platform',
+    title: 'Peakspot — Sports Performance Platform',
+    subtitle: 'Sports Performance Mobile Platform & BLE Device Integration',
     category: 'Professional',
     isProfessional: true,
-    categoryTag: 'SaaS Platform / Mobile',
-    tech: ['.NET Core 7', 'Entity Framework Core', 'SQL Server', 'REST APIs', 'Flutter', 'Dart'],
+    categoryTag: 'Flutter & Hardware Device Integration',
+    appType: 'Flutter Mobile App',
+    tech: [
+      'Flutter',
+      'Dart',
+      'Bluetooth Low Energy (BLE)',
+      'WebSockets',
+      'Device Integration',
+      'OTA Firmware Updates',
+      'REST APIs',
+    ],
     description:
-      'Full-stack Trainer–Trainee management platform deployed across multiple training centers, handling task assignment, progress tracking, and multi-center data isolation.',
+      'Sports performance mobile platform involving communication between the Flutter mobile application and external sports measurement devices via Bluetooth Low Energy (BLE) and WebSockets.',
     longDescription:
-      'Architected and delivered an enterprise-grade platform with a .NET Core 7 REST API backend and cross-platform Flutter mobile applications for Android & iOS. Applied Clean Architecture with Repository Pattern and Dependency Injection for a testable, loosely coupled codebase.',
+      'Developed a Flutter mobile application companion for external athletic measurement hardware. Implemented end-to-end device connection lifecycles over BLE and WebSockets, including hardware discovery, provisioning, live connection diagnostics, ping/pong heartbeat monitoring, and application-side Over-The-Air (OTA) firmware update workflows.',
+    purpose:
+      'Designed to bridge external athletic measurement hardware with a modern mobile interface, enabling coaches and athletes to discover nearby devices, establish low-latency telemetry feeds, monitor hardware connection status, and maintain firmware directly from their mobile devices.',
+    responsibilities: [
+      'Developed Flutter mobile application screens for hardware scanning, device provisioning, and live telemetry.',
+      'Built Bluetooth Low Energy (BLE) scanning, service discovery, and pairing workflows.',
+      'Implemented WebSocket-based device communication for low-latency telemetry and sensor data streaming.',
+      'Implemented real-time device connection status monitoring with visual connection indicators.',
+      'Engineered ping/pong heartbeat protocols and resilient disconnect/reconnect handling on signal loss.',
+      'Integrated Over-The-Air (OTA) firmware update workflow on the mobile application side.',
+      'Handled raw device data parsing, packet validation, and reactive application state integration.',
+    ],
+    architecture: [
+      'Stream-driven hardware communication architecture using Dart async Streams and StreamControllers.',
+      'Reactive Riverpod state providers managing device lifecycle states (Disconnected, Connecting, Connected, Streaming, Updating).',
+      'Modular hardware communication layer decoupling protocol parsing from UI rendering.',
+    ],
+    deviceIntegration: [
+      'BLE service and characteristic discovery, MTU negotiation, and notification subscription pipelines.',
+      'WebSocket bi-directional messaging with ping/pong keepalive frames for connection health tracking.',
+      'Mobile-side OTA firmware update workflow: file chunking, transfer monitoring, progress bar UI, and checksum verification.',
+    ],
+    technicalChallenges: [
+      'Connection resilience: Managed erratic Bluetooth signal drops in active training venues with state recovery mechanisms.',
+      'High-frequency data streams: Efficiently throttled and batched incoming hardware packets to prevent UI frame stutter.',
+      'Firmware transfer integrity: Engineered chunked binary transmission pipelines with transfer progress tracking.',
+    ],
+    accuracyNote:
+      'Engineering Status Disclosure: Over-The-Air (OTA) firmware update workflows and device telemetry pipelines were integrated into the mobile app interface; full end-to-end device deployment and field validation remain under active engineering verification. Force plate hardware integration is exploratory and not complete.',
+    projectStatus:
+      'Professional engineering project; core mobile connection architecture and device telemetry workflows functional in internal test cycles with ongoing firmware update verification.',
     achievements: [
-      'Architected full-stack trainer–trainee management platform deployed across multiple training centers',
-      'Built cross-platform Flutter application (Android & iOS) integrated with .NET Core backend APIs',
-      'Automated trainee registration and profile setup pipeline, reducing manual onboarding steps',
-      'Implemented push notification reminder system for task completion and schedule tracking',
-      'Applied Dependency Injection and Repository Pattern for loosely coupled, testable architecture',
-      'Collaborated with stakeholders to translate business rules into validated API logic',
+      'Developed Flutter mobile application interface for athletic measurement device management',
+      'Engineered Bluetooth Low Energy (BLE) scanning, service discovery, and device provisioning',
+      'Implemented WebSocket-based device communication and high-frequency telemetry data handling',
+      'Designed connection status monitoring with ping/pong heartbeat and reconnect resilience',
+      'Integrated application-side Over-The-Air (OTA) firmware update transfer workflows',
     ],
   },
   {
     id: 2,
     number: '02',
+    title: 'DBTM — Digital Body Training Management',
+    subtitle: 'Cross-Platform Sports Training & Athlete Performance Application',
+    category: 'Professional',
+    isProfessional: true,
+    categoryTag: 'Flutter Mobile & Full-Stack Platform',
+    appType: 'Flutter Mobile & Backend',
+    tech: [
+      'Flutter',
+      'Dart',
+      'Riverpod',
+      'Dio',
+      'WebSocket',
+      'ASP.NET Core',
+      'SQL Server',
+      'REST APIs',
+    ],
+    description:
+      'Cross-platform sports training management mobile application supporting trainers and trainees with training assignments, batch and camp management, athlete testing, performance tracking, and dynamic reporting.',
+    longDescription:
+      'Engineered a cross-platform mobile training management application with Flutter and Dart, backed by an ASP.NET Core REST API and WebSocket architecture. The app provides trainers and athletes with streamlined digital workflows for session planning, batch tracking, physical assessment testing, and real-time training analytics.',
+    purpose:
+      'Developed to replace manual paper logs and fragmented spreadsheets with a centralized, real-time sports training management application across training facilities. The mobile client delivers dedicated workflows for coaches to manage batches, schedule training drills, track athletic metrics, and export performance reports directly from their mobile devices.',
+    responsibilities: [
+      'Developed cross-platform Flutter application screens and reusable UI component architecture across Android and iOS.',
+      'Integrated ASP.NET Core REST APIs using Dio with custom interceptors for authentication tokens and structured error handling.',
+      'Implemented robust reactive application state management using Riverpod (StateNotifier and Providers).',
+      'Engineered tailored trainer and trainee workflows with role-specific navigation, privileges, and screen layouts.',
+      'Implemented batch, camp, assignment, and multi-activity selection workflows with comprehensive validation.',
+      'Developed athlete testing result screens with dynamic inputs for physical measurement metrics and calculated scores.',
+      'Integrated dynamic report generation pipelines with PDF and Excel downloads and native mobile sharing.',
+      'Implemented interactive performance charts and trend visualization using Flutter charting libraries.',
+      'Worked on WebSocket device communication, live connection status monitoring, and reconnect/disconnect handling.',
+      'Optimized application performance through widget rebuild minimization, async state caching, and cross-platform debugging.',
+    ],
+    architecture: [
+      'Clean feature-first modular folder structure separating UI presentation, domain entities, and data providers.',
+      'Encapsulated networking layer via Dio with request interceptors, response transformers, and cancellation tokens.',
+      'Predictable, immutable state management using Riverpod with fine-grained UI rebuild subscriptions.',
+      'Cross-platform Flutter charting integration for historical athletic progress and drill evaluation curves.',
+    ],
+    deviceIntegration: [
+      'WebSocket real-time communication for bidirectional messaging between the mobile client and training devices.',
+      'Heartbeat connection monitoring with automated exponential backoff on network disconnections.',
+      'Real-time synchronization of active training session progress across trainer and trainee interfaces.',
+    ],
+    technicalChallenges: [
+      'Complex multi-metric input validation: Built dynamic evaluation forms handling variable athletic assessment scales with real-time score computation.',
+      'Mobile report export: Implemented in-app document generation enabling coaches to download and share structured PDF/Excel training summaries on the go.',
+      'Network resilience: Ensured seamless state recovery and optimistic UI updates during training facility Wi-Fi/cellular transitions.',
+    ],
+    projectStatus:
+      'Professional production application deployed in operational sports training facilities; ongoing development for advanced analytics workflows.',
+    achievements: [
+      'Developed cross-platform Flutter mobile application supporting trainers and trainees across training centers',
+      'Implemented Riverpod reactive state management for predictable data flow and fast UI rendering',
+      'Integrated ASP.NET Core REST APIs via Dio with token interceptors and robust error handling',
+      'Engineered batch, camp, assignment, and athlete testing result workflows with dynamic validation',
+      'Integrated dynamic PDF and Excel report generation with native mobile sharing capabilities',
+      'Implemented real-time WebSocket connection monitoring and disconnect/reconnect handling',
+    ],
+  },
+  {
+    id: 3,
+    number: '03',
     title: 'Cooperative Banking System',
     subtitle: 'Hierarchical Account Tree & Recursive SQL Engine',
     category: 'Professional',
     isProfessional: true,
     categoryTag: 'Financial Core / Backend',
+    appType: 'Backend API & Database',
     tech: ['.NET Core', 'Entity Framework Core', 'SQL Server', 'Recursive CTE', 'REST APIs'],
     description:
       'Recursive tree-structured Account Management module supporting unlimited parent-child account nodes across asset and liability categories with transactional integrity.',
@@ -58,13 +170,14 @@ const projects: Project[] = [
     ],
   },
   {
-    id: 3,
-    number: '03',
+    id: 4,
+    number: '04',
     title: 'Gym Management System',
     subtitle: 'Role-Based Operational & Subscription Management API',
     category: 'Professional',
     isProfessional: true,
     categoryTag: 'Operational Backend / RBAC',
+    appType: 'Backend API & RBAC',
     tech: ['.NET Core', 'Entity Framework Core', 'SQL Server', 'REST APIs', 'JWT', 'xUnit'],
     description:
       'REST API system covering member registration, subscription lifecycle, health metrics tracking, and role-based access for daily gym operations.',
@@ -79,26 +192,6 @@ const projects: Project[] = [
     ],
   },
   {
-    id: 4,
-    number: '04',
-    title: 'Peakspot – Sports Performance Platform',
-    subtitle: 'Athletic Telemetry & Workout Analytics Engine',
-    category: 'Professional',
-    isProfessional: true,
-    categoryTag: 'Analytics & Real-Time',
-    tech: ['FastAPI', 'Python', 'PostgreSQL', 'PostGIS', 'Supabase', 'WebSocket'],
-    description:
-      'Athletic telemetry and workout analytics platform designed for real-time tracking, geospatial routing, and structured performance metrics.',
-    longDescription:
-      'Engineered an API engine leveraging FastAPI and Supabase, storing spatial movement routes with PostgreSQL & PostGIS, and transmitting live telemetry via WebSockets to client applications.',
-    achievements: [
-      'Designed high-performance RESTful and WebSocket API architecture using FastAPI',
-      'Integrated PostgreSQL with PostGIS extension for geospatial route tracing',
-      'Built authentication and data layer on Supabase with strict schema integrity',
-      'Structured athlete performance data for historical tracking and trend analysis',
-    ],
-  },
-  {
     id: 5,
     number: '05',
     title: 'Attendance Management SaaS',
@@ -106,6 +199,7 @@ const projects: Project[] = [
     category: 'Personal / In Development',
     isProfessional: false,
     categoryTag: 'Mobile App & IoT',
+    appType: 'Flutter Mobile & IoT',
     tech: ['Flutter', 'Dart', 'Riverpod', 'Bluetooth BLE', 'Supabase', 'PostgreSQL'],
     description:
       'Cross-platform Flutter application for proximity-verified employee attendance using Bluetooth beacons, real-time sync, and multi-tenant admin dashboards.',

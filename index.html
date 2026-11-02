@@ -3,14 +3,27 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Gajendra Pardhi – Full-Stack Developer Portfolio</title>
+    <title>Gajendra Pardhi – Associate Software Developer</title>
+    <meta name="description" content="Portfolio of Gajendra Pardhi – Associate Software Developer specializing in .NET Core, Flutter, and Backend Development." />
+    <!-- Prevent theme flash before initial render -->
+    <script>
+      (function() {
+        try {
+          var saved = localStorage.getItem('portfolio-theme');
+          var theme = saved || (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+          document.documentElement.setAttribute('data-theme', theme);
+        } catch (e) {}
+      })();
+    </script>
+    <!-- Preload interactive portrait images to ensure immediate rendering & zero-flicker hover -->
+    <link rel="preload" as="image" href="/assets/gajendra-default.jpeg" />
+    <link rel="preload" as="image" href="/assets/gajendra-hover.jpeg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;0,800;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
-

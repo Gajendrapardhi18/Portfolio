@@ -1,6 +1,5 @@
 import React, { useEffect } from 'react';
 import { Project } from '../data/projects';
-import { ProjectMockup } from './ProjectMockup';
 
 interface Props {
   project: Project | null;
@@ -8,116 +7,99 @@ interface Props {
 }
 
 export const ProjectDetailModal: React.FC<Props> = ({ project, onClose }) => {
+  // Close on Escape key
   useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
+    if (!project) return;
+    const handler = (e: KeyboardEvent) => {
       if (e.key === 'Escape') onClose();
     };
+    document.addEventListener('keydown', handler);
+    return () => document.removeEventListener('keydown', handler);
+  }, [project, onClose]);
+
+  // Prevent body scroll when open
+  useEffect(() => {
     if (project) {
       document.body.style.overflow = 'hidden';
-      window.addEventListener('keydown', handleKeyDown);
-    }
-    return () => {
+    } else {
       document.body.style.overflow = '';
-      window.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [project, onClose]);
+    }
+    return () => { document.body.style.overflow = ''; };
+  }, [project]);
 
   if (!project) return null;
 
   return (
     <div
       className="modal-backdrop"
-      onClick={onClose}
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
       role="dialog"
       aria-modal="true"
-      aria-label={project.title}
+      aria-labelledby="modal-title"
     >
-      <div className="modal-window" onClick={(e) => e.stopPropagation()}>
-        {/* Modal Top Bar */}
-        <div className="modal-top-bar">
-          <div className="modal-tag-group">
-            <span className="modal-index">{project.number}</span>
-            <span className={`modal-badge ${project.isProfessional ? 'badge-pro' : 'badge-dev'}`}>
-              {project.category}
-            </span>
-            <span className="modal-category-name">// {project.categoryTag}</span>
+      <div className="modal-panel">
+        {/* Header */}
+        <div className="modal-header">
+          <div className="modal-header-left">
+            <span className="modal-number">Project {project.number} · {project.categoryTag}</span>
+            <h2 className="modal-title" id="modal-title">{project.title}</h2>
+            <p className="modal-subtitle">{project.subtitle}</p>
           </div>
-
-          <button onClick={onClose} className="modal-close-btn" aria-label="Close dialog">
-            ✕
+          <button
+            className="modal-close-btn"
+            onClick={onClose}
+            aria-label="Close project details"
+          >
+            ×
           </button>
         </div>
 
-        {/* Modal Content Scroll Area */}
-        <div className="modal-scroll-body">
-          <h2 className="modal-heading">{project.title}</h2>
-          <p className="modal-lead-subtitle">{project.subtitle}</p>
-
-          {/* Large Architectural Mockup */}
-          <div className="modal-mockup-frame">
-            <ProjectMockup type={project.previewType} title={project.title} />
+        {/* Body */}
+        <div className="modal-body">
+          {/* Badges */}
+          <div className="modal-badges">
+            {project.isProfessional ? (
+              <span className="badge badge-professional">Professional</span>
+            ) : (
+              <>
+                <span className="badge badge-personal">Personal</span>
+                <span className="badge badge-dev">In Development</span>
+              </>
+            )}
           </div>
 
-          {/* Results Summary Box */}
-          <div className="modal-results-banner">
-            <div className="results-banner-label">VERIFIED QUANTIFIABLE METRICS</div>
-            <div className="results-banner-grid">
-              {project.metrics.map((m, idx) => (
-                <div key={idx} className="banner-metric">
-                  <div className="banner-val">{m.value}</div>
-                  <div className="banner-desc">{m.label}</div>
-                </div>
-              ))}
-            </div>
+          {/* Overview */}
+          <div>
+            <div className="modal-section-title">Overview</div>
+            <p className="modal-description">{project.longDescription}</p>
           </div>
 
-          {/* Deep Architectural Breakdown */}
-          <div className="modal-section-block">
-            <div className="block-title">
-              <span className="tech-prompt">&gt;</span> ARCHITECTURAL_OVERVIEW
-            </div>
-            <p className="block-text">{project.longDescription}</p>
-          </div>
-
-          {/* Responsibilities & Achievements */}
-          <div className="modal-section-block">
-            <div className="block-title">
-              <span className="tech-prompt">&gt;</span> ENGINEERING_RESPONSIBILITIES_&amp;_DELIVERABLES
-            </div>
-            <ul className="modal-bullet-list">
-              {project.responsibilities.map((r, i) => (
-                <li key={i} className="bullet-item">
-                  <span className="bullet-reticle">▸</span>
-                  <span className="bullet-content">{r}</span>
+          {/* Key contributions */}
+          <div>
+            <div className="modal-section-title">Key Contributions</div>
+            <ul className="modal-achievements">
+              {project.achievements.map((item, i) => (
+                <li key={i} className="modal-achievement-item">
+                  <span className="achievement-dot" />
+                  <span>{item}</span>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Tech Stack List */}
-          <div className="modal-section-block">
-            <div className="block-title">
-              <span className="tech-prompt">&gt;</span> INTEGRATED_TECHNOLOGIES
-            </div>
-            <div className="modal-tags-wrap">
+          {/* Tech Stack */}
+          <div>
+            <div className="modal-section-title">Tech Stack</div>
+            <div className="modal-tech-list">
               {project.tech.map((t) => (
-                <span key={t} className="tech-pill tech-pill-lg">
-                  {t}
-                </span>
+                <span key={t} className="tech-tag">{t}</span>
               ))}
             </div>
           </div>
-        </div>
-
-        {/* Modal Footer Bar */}
-        <div className="modal-footer-bar">
-          <span className="footer-mono-note">// GAJENDRA PARDHI · PRODUCTION ARCHITECTURE</span>
-          <button onClick={onClose} className="btn-modal-dismiss">
-            CLOSE_PANEL [ESC]
-          </button>
         </div>
       </div>
     </div>
   );
 };
 
+export default ProjectDetailModal;

@@ -1,112 +1,76 @@
 import React from 'react';
+import { InteractivePortrait } from './InteractivePortrait';
 
 interface Props {
-  onExploreClick: () => void;
+  onScrollToProjects: () => void;
 }
 
-export const Hero: React.FC<Props> = ({ onExploreClick }) => {
+export const Hero: React.FC<Props> = ({ onScrollToProjects }) => {
   return (
     <section id="home" className="hero-section">
-      {/* Top technical status log line */}
-      <div className="hero-status-row">
-        <div className="tech-tag">
-          <span className="tech-prompt">&gt;</span> INITIALIZING_PORTFOLIO.EXE
-        </div>
-        <div className="tech-tag status-tag">
-          <span className="status-dot"></span>
-          STATUS: <span className="status-val">ONLINE</span>
-        </div>
-      </div>
+      <div className="container">
+        <div className="hero-grid">
+          {/* Left: Text content */}
+          <div className="hero-content">
+            <div className="hero-label">Associate Software Developer</div>
 
-      <div className="hero-grid">
-        {/* Left Headline & Pitch */}
-        <div className="hero-content">
-          <h1 className="hero-title">
-            Building Systems<br />
-            Behind the <span className="text-emerald">Interface.</span>
-          </h1>
+            <h1 className="hero-name">Gajendra Pardhi</h1>
 
-          <p className="hero-subtitle">
-            I design and develop scalable backend systems and cross-platform mobile applications,
-            transforming complex requirements into reliable, production-grade software solutions.
-          </p>
+            <div className="hero-role">
+              .NET Core · Flutter · Backend Development
+            </div>
 
-          <div className="hero-actions">
-            <button onClick={onExploreClick} className="btn-tech btn-tech-primary">
-              VIEW MY WORK <span className="btn-arrow">→</span>
-            </button>
-            <a href="/.NET_Resume.pdf" download className="btn-tech btn-tech-ghost" title="Download verified .NET Developer Resume">
-              DOWNLOAD .NET CV <span className="btn-icon">↓</span>
-            </a>
-            <a href="/Flutter_Resume.pdf" download className="btn-tech btn-tech-ghost" title="Download verified Flutter Developer Resume">
-              DOWNLOAD FLUTTER CV <span className="btn-icon">↓</span>
-            </a>
-          </div>
+            <div className="hero-tagline">
+              <span className="tagline-pill">C# &amp; .NET</span>
+              <span className="tagline-sep">·</span>
+              <span className="tagline-pill">Flutter &amp; Dart</span>
+              <span className="tagline-sep">·</span>
+              <span className="tagline-pill">SQL Server</span>
+              <span className="tagline-sep">·</span>
+              <span className="tagline-pill">REST APIs</span>
+            </div>
 
-          <div className="hero-scroll-prompt">
-            <a href="#projects" className="scroll-indicator">
-              <span className="tech-prompt">&gt;</span> SCROLL_TO_EXPLORE <span className="scroll-arrow">↓</span>
-            </a>
-          </div>
-        </div>
+            <p className="hero-bio">
+              Associate Software Developer at Dynage Tech, building scalable backend systems and
+              cross-platform mobile applications. I design clean, maintainable APIs and deliver
+              production-grade software with attention to architecture and reliability.
+            </p>
 
-        {/* Center/Right: Portrait with Corner Brackets & Quick Meta */}
-        <div className="hero-portrait-card">
-          <div className="portrait-frame">
-            {/* Corner Crosshair Reticles matching reference */}
-            <span className="corner-bracket top-left">┌</span>
-            <span className="corner-bracket top-right">┐</span>
-            <span className="corner-bracket bottom-left">└</span>
-            <span className="corner-bracket bottom-right">┘</span>
+            <div className="hero-actions">
+              <button onClick={onScrollToProjects} className="btn btn-primary">
+                View Projects →
+              </button>
+              <a href="/.NET_Resume.pdf" download className="btn btn-outline">
+                Download .NET CV ↓
+              </a>
+              <a href="/Flutter_Resume.pdf" download className="btn btn-ghost">
+                Download Flutter CV ↓
+              </a>
+            </div>
 
-            <div className="portrait-image-wrapper">
-              <img
-                src="/assets/gajendra_portrait.jpg"
-                alt="Gajendra Pardhi — Full-Stack Software Developer"
-                className="portrait-img"
-              />
-              <div className="portrait-overlay">
-                <span className="portrait-hint">GAJENDRA PARDHI // SYSTEM ARCHITECT</span>
+            <div className="hero-meta-row">
+              <div className="hero-meta-item">
+                <span className="hero-meta-dot" />
+                Dynage Tech Pvt. Ltd.
+              </div>
+              <div className="hero-meta-item">
+                <span className="hero-meta-dot" />
+                Nagpur, India
+              </div>
+              <div className="hero-meta-item">
+                <span className="hero-available-dot" />
+                Open to opportunities
               </div>
             </div>
           </div>
 
-          {/* Quick Info Grid Beside Portrait matching reference */}
-          <div className="portrait-meta-col">
-            <div className="meta-block">
-              <div className="meta-key">&gt; WHO_AM_I</div>
-              <div className="meta-val highlight-white">Gajendra Pardhi</div>
-            </div>
-
-            <div className="meta-block">
-              <div className="meta-key">&gt; ROLE</div>
-              <div className="meta-val">
-                Associate Software Developer<br />
-                <span className="meta-sub">.NET Core · Flutter · SQL</span>
-              </div>
-            </div>
-
-            <div className="meta-block">
-              <div className="meta-key">&gt; COMPANY</div>
-              <div className="meta-val">Dynage Tech Pvt. Ltd.</div>
-            </div>
-
-            <div className="meta-block">
-              <div className="meta-key">&gt; LOCATION</div>
-              <div className="meta-val">Nagpur, MH, India</div>
-            </div>
-
-            <div className="meta-block">
-              <div className="meta-key">&gt; EXPERIENCE</div>
-              <div className="meta-val highlight-white">1.5+ Years</div>
-            </div>
-
-            <div className="meta-block">
-              <div className="meta-key">&gt; AVAILABILITY</div>
-              <div className="meta-val availability-status">
-                <span className="pulse-dot"></span> Open for new projects
-              </div>
-            </div>
+          {/* Right: Interactive Portrait with Crimson Backdrop */}
+          <div className="hero-portrait-col">
+            <InteractivePortrait
+              defaultSrc="/assets/gajendra-default.jpeg"
+              hoverSrc="/assets/gajendra-hover.jpeg"
+              alt="Illustrated portrait of Gajendra Pardhi, Associate Software Developer with glasses against a crimson background"
+            />
           </div>
         </div>
       </div>
@@ -114,3 +78,4 @@ export const Hero: React.FC<Props> = ({ onExploreClick }) => {
   );
 };
 
+export default Hero;

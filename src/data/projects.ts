@@ -1,8 +1,3 @@
-export interface ProjectMetric {
-  value: string;
-  label: string;
-}
-
 export interface Project {
   id: number;
   number: string;
@@ -14,10 +9,7 @@ export interface Project {
   tech: string[];
   description: string;
   longDescription: string;
-  metrics: ProjectMetric[];
-  responsibilities: string[];
-  image: string;
-  previewType: 'dashboard' | 'banking' | 'gym' | 'sports' | 'attendance';
+  achievements: string[];
 }
 
 const projects: Project[] = [
@@ -28,27 +20,20 @@ const projects: Project[] = [
     subtitle: 'Enterprise Trainer–Trainee Management Platform',
     category: 'Professional',
     isProfessional: true,
-    categoryTag: 'SAAS PLATFORM / MOBILE',
+    categoryTag: 'SaaS Platform / Mobile',
     tech: ['.NET Core 7', 'Entity Framework Core', 'SQL Server', 'REST APIs', 'Flutter', 'Dart'],
     description:
-      'Full-stack Trainer–Trainee management platform deployed across 3+ training centers, handling task assignment, progress tracking, and multi-center data isolation.',
+      'Full-stack Trainer–Trainee management platform deployed across multiple training centers, handling task assignment, progress tracking, and multi-center data isolation.',
     longDescription:
-      'Architected and delivered an enterprise-grade platform with a .NET Core 7 REST API backend and cross-platform Flutter mobile applications for Android & iOS. Automated the trainee registration pipeline, integrated push notifications, and applied Clean Architecture with Repository Pattern.',
-    metrics: [
-      { value: '40% ↓', label: 'Trainee Onboarding Time' },
-      { value: '25% ↑', label: 'Task Completion Rate' },
-      { value: '3+', label: 'Training Centers Deployed' },
-    ],
-    responsibilities: [
-      'Architected full-stack trainer–trainee management platform deployed across 3+ training centers',
-      'Built cross-platform Flutter app (Android & iOS) integrated with .NET Core backend APIs',
-      'Reduced trainee onboarding time by ~40% through automated registration and profile setup',
-      'Implemented push notification reminder system, improving task completion by ~25%',
-      'Applied Dependency Injection and Repository Pattern for loosely coupled, testable codebase',
+      'Architected and delivered an enterprise-grade platform with a .NET Core 7 REST API backend and cross-platform Flutter mobile applications for Android & iOS. Applied Clean Architecture with Repository Pattern and Dependency Injection for a testable, loosely coupled codebase.',
+    achievements: [
+      'Architected full-stack trainer–trainee management platform deployed across multiple training centers',
+      'Built cross-platform Flutter application (Android & iOS) integrated with .NET Core backend APIs',
+      'Automated trainee registration and profile setup pipeline, reducing manual onboarding steps',
+      'Implemented push notification reminder system for task completion and schedule tracking',
+      'Applied Dependency Injection and Repository Pattern for loosely coupled, testable architecture',
       'Collaborated with stakeholders to translate business rules into validated API logic',
     ],
-    image: '/assets/placeholder-project.svg',
-    previewType: 'dashboard',
   },
   {
     id: 2,
@@ -57,27 +42,20 @@ const projects: Project[] = [
     subtitle: 'Hierarchical Account Tree & Recursive SQL Engine',
     category: 'Professional',
     isProfessional: true,
-    categoryTag: 'FINANCIAL CORE / BACKEND',
+    categoryTag: 'Financial Core / Backend',
     tech: ['.NET Core', 'Entity Framework Core', 'SQL Server', 'Recursive CTE', 'REST APIs'],
     description:
-      'Recursive tree-structured Account Management module supporting 500+ account nodes across asset and liability categories with zero performance degradation.',
+      'Recursive tree-structured Account Management module supporting unlimited parent-child account nodes across asset and liability categories with transactional integrity.',
     longDescription:
-      'Engineered an enterprise financial tree hierarchy handling unlimited parent-child account depth using Common Table Expressions (CTE) in SQL Server. Optimized EF Core mappings and built bulk transaction stored procedures with rollback safety.',
-    metrics: [
-      { value: '30% ↑', label: 'Report Generation Speed' },
-      { value: '500+', label: 'Account Tree Nodes Supported' },
-      { value: '0ms', label: 'Hierarchy Degradation' },
-    ],
-    responsibilities: [
-      'Built recursive tree-structured account management module supporting 500+ account nodes',
-      'Implemented CTE-based recursive SQL logic replacing brittle iterative approaches',
-      'Optimized SQL queries and EF Core mappings using execution plan analysis (30% speedup)',
+      'Engineered an enterprise financial hierarchy using Common Table Expressions (CTE) in SQL Server. Optimized EF Core mappings using execution plan analysis and built bulk transaction stored procedures with rollback safety to ensure data integrity across operations.',
+    achievements: [
+      'Built recursive tree-structured account management module supporting unlimited account hierarchy depth',
+      'Implemented CTE-based recursive SQL logic, replacing fragile iterative approaches',
+      'Optimized SQL queries and EF Core mappings using execution plan analysis',
       'Designed Stored Procedures for bulk account operations ensuring transactional integrity',
-      'Integrated backend APIs with front-end tree-view for auditor drill-downs',
-      'Enforced strict account hierarchy validation at the API layer before DB writes',
+      'Integrated backend APIs with front-end tree-view for auditor drill-down workflows',
+      'Enforced strict account hierarchy validation at the API layer before database writes',
     ],
-    image: '/assets/placeholder-project.svg',
-    previewType: 'banking',
   },
   {
     id: 3,
@@ -86,26 +64,19 @@ const projects: Project[] = [
     subtitle: 'Role-Based Operational & Subscription Management API',
     category: 'Professional',
     isProfessional: true,
-    categoryTag: 'OPERATIONAL BACKEND / RBAC',
+    categoryTag: 'Operational Backend / RBAC',
     tech: ['.NET Core', 'Entity Framework Core', 'SQL Server', 'REST APIs', 'JWT', 'xUnit'],
     description:
-      'Developed 8+ REST API endpoints covering member registration, subscription lifecycle, and health metrics tracking for daily gym operations.',
+      'REST API system covering member registration, subscription lifecycle, health metrics tracking, and role-based access for daily gym operations.',
     longDescription:
-      'Implemented JWT-based Role-Based Access Control (Admin, Trainer, Member roles), comprehensive server-side input validation, business rule enforcement, and automated regression testing via xUnit in an Agile environment.',
-    metrics: [
-      { value: '20% ↓', label: 'Data Entry Error Rate' },
-      { value: '8+', label: 'Secure REST Endpoints' },
-      { value: '100%', label: 'Sprint Delivery Coverage' },
+      'Implemented JWT-based Role-Based Access Control (Admin, Trainer, Member), comprehensive server-side input validation, business rule enforcement, and automated regression testing via xUnit in an Agile team environment.',
+    achievements: [
+      'Developed REST API endpoints covering member lifecycle and health metric tracking',
+      'Implemented Role-Based Access Control (RBAC) using JWT across Admin, Trainer, and Member roles',
+      'Enforced comprehensive server-side input validation and business rule checks',
+      'Wrote unit tests using xUnit to improve system regression reliability',
+      'Collaborated in a 3-member Agile team delivering sprint integrations on time',
     ],
-    responsibilities: [
-      'Developed 8+ REST API endpoints covering member lifecycle and health metric tracking',
-      'Implemented Role-Based Access Control (RBAC) using JWT across Admin, Trainer, Member',
-      'Reduced data entry errors by ~20% through comprehensive server-side input validation',
-      'Wrote comprehensive unit tests using xUnit, improving system regression reliability',
-      'Collaborated in a 3-member Agile team delivering integrations across 2-week sprints',
-    ],
-    image: '/assets/placeholder-project.svg',
-    previewType: 'gym',
   },
   {
     id: 4,
@@ -114,25 +85,18 @@ const projects: Project[] = [
     subtitle: 'Athletic Telemetry & Workout Analytics Engine',
     category: 'Professional',
     isProfessional: true,
-    categoryTag: 'ANALYTICS & REAL-TIME',
+    categoryTag: 'Analytics & Real-Time',
     tech: ['FastAPI', 'Python', 'PostgreSQL', 'PostGIS', 'Supabase', 'WebSocket'],
     description:
       'Athletic telemetry and workout analytics platform designed for real-time tracking, geospatial routing, and structured performance metrics.',
     longDescription:
-      'Engineered an API engine leveraging FastAPI and Supabase, storing spatial movement routes with PostgreSQL & PostGIS, and transmitting live telemetry metrics via WebSockets to client applications.',
-    metrics: [
-      { value: 'Live', label: 'WebSocket Telemetry Stream' },
-      { value: 'Spatial', label: 'PostGIS Route Optimization' },
-      { value: 'FastAPI', label: 'High-Throughput Async Backend' },
-    ],
-    responsibilities: [
+      'Engineered an API engine leveraging FastAPI and Supabase, storing spatial movement routes with PostgreSQL & PostGIS, and transmitting live telemetry via WebSockets to client applications.',
+    achievements: [
       'Designed high-performance RESTful and WebSocket API architecture using FastAPI',
       'Integrated PostgreSQL with PostGIS extension for geospatial route tracing',
-      'Built authentication and data layer on Supabase backend with strict schema integrity',
-      'Structured athlete performance dashboards for historical tracking and trend analysis',
+      'Built authentication and data layer on Supabase with strict schema integrity',
+      'Structured athlete performance data for historical tracking and trend analysis',
     ],
-    image: '/assets/placeholder-project.svg',
-    previewType: 'sports',
   },
   {
     id: 5,
@@ -141,25 +105,18 @@ const projects: Project[] = [
     subtitle: 'Cross-Platform Proximity Attendance Tracking',
     category: 'Personal / In Development',
     isProfessional: false,
-    categoryTag: 'MOBILE APP & IOT',
+    categoryTag: 'Mobile App & IoT',
     tech: ['Flutter', 'Dart', 'Riverpod', 'Bluetooth BLE', 'Supabase', 'PostgreSQL'],
     description:
       'Cross-platform Flutter application for proximity-verified employee attendance using Bluetooth beacons, real-time sync, and multi-tenant admin dashboards.',
     longDescription:
       'Currently in active development: features BLE (Bluetooth Low Energy) beacon detection to automate clock-in upon physical office arrival, powered by Riverpod state management and a cloud database backend.',
-    metrics: [
-      { value: 'BLE', label: 'Bluetooth Proximity Check-in' },
-      { value: 'Riverpod', label: 'Reactive State Architecture' },
-      { value: 'Active', label: 'In Ongoing Development' },
-    ],
-    responsibilities: [
+    achievements: [
       'Building cross-platform mobile frontend with Flutter & Dart for Android and iOS',
       'Implementing BLE proximity scanning for contactless check-in validation',
       'Architecting reactive global state and offline caching using Riverpod',
       'Designing multi-tenant database models in PostgreSQL via Supabase',
     ],
-    image: '/assets/placeholder-project.svg',
-    previewType: 'attendance',
   },
 ];
 

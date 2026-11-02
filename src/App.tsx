@@ -3,44 +3,77 @@ import projects, { Project } from './data/projects';
 import { Preloader } from './components/Preloader';
 import { Header } from './components/Header';
 import { Hero } from './components/Hero';
-import { SelectedProjects } from './components/SelectedProjects';
-import { SystemLogAndStack } from './components/SystemLogAndStack';
-import { CaseStudies } from './components/CaseStudies';
+import { ProjectsSection } from './components/ProjectsSection';
+import { ExperienceSection } from './components/ExperienceSection';
 import { SkillsSection } from './components/SkillsSection';
-import { CtaSection } from './components/CtaSection';
+import { EducationSection } from './components/EducationSection';
+import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ProjectDetailModal } from './components/ProjectDetailModal';
 import './styles/global.css';
 
+const getInitialTheme = (): 'light' | 'dark' => {
+  if (typeof window !== 'undefined') {
+    const saved = localStorage.getItem('portfolio-theme');
+    if (saved === 'light' || saved === 'dark') return saved;
+    if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+  }
+  return 'light';
+};
+
 export const App: React.FC = () => {
+  const [theme, setTheme] = useState<'light' | 'dark'>(getInitialTheme);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
-  // Clean URL parameters: safely strips external referral tags (e.g. ?utm_source=chatgpt.com)
+  // Apply theme to html root and persist in localStorage
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem('portfolio-theme', theme);
+  }, [theme]);
+
+  // Listen to OS theme changes if user hasn't manually set a preference
+  useEffect(() => {
+    if (typeof window === 'undefined' || !window.matchMedia) return;
+    const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
+    const handleChange = (e: MediaQueryListEvent) => {
+      const saved = localStorage.getItem('portfolio-theme');
+      if (!saved) {
+        setTheme(e.matches ? 'dark' : 'light');
+      }
+    };
+    mediaQuery.addEventListener('change', handleChange);
+    return () => mediaQuery.removeEventListener('change', handleChange);
+  }, []);
+
+  const toggleTheme = () => {
+    setTheme((prev) => (prev === 'light' ? 'dark' : 'light'));
+  };
+
+  // Clean URL: safely strip external referral UTM tags
   useEffect(() => {
     if (typeof window !== 'undefined' && window.location.search) {
       try {
         const urlParams = new URLSearchParams(window.location.search);
         const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
         let hasUtm = false;
-
         utmKeys.forEach((key) => {
           if (urlParams.has(key)) {
             urlParams.delete(key);
             hasUtm = true;
           }
         });
-
         if (hasUtm) {
-          const remainingQuery = urlParams.toString();
+          const remaining = urlParams.toString();
           const cleanUrl =
             window.location.pathname +
-            (remainingQuery ? `?${remainingQuery}` : '') +
+            (remaining ? `?${remaining}` : '') +
             window.location.hash;
-
           window.history.replaceState({}, document.title, cleanUrl);
         }
-      } catch (err) {
+      } catch {
         // Silent fail-safe
       }
     }
@@ -51,80 +84,47 @@ export const App: React.FC = () => {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const handleScrollToCaseStudies = () => {
-    const el = document.getElementById('case-studies');
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
-  };
-
   return (
     <>
-      {isLoading && (
-        <Preloader onComplete={() => setIsLoading(false)} />
-      )}
+      {isLoading && <Preloader theme={theme} onComplete={() => setIsLoading(false)} />}
 
-      <div className="app-container">
-        {/* Top Presentation Bar */}
-        <div className="presentation-bar">
-          <div className="pres-status">
-            <span className="pres-dot"></span>
-            <span>GAJENDRA PARDHI // FULL-STACK SOFTWARE DEVELOPER PORTFOLIO</span>
-          </div>
-          <div className="pres-actions">
-            <a href="#home" className="pres-link">[01 // HOME]</a>
-            <a href="#projects" className="pres-link">[02 // SELECTED]</a>
-            <a href="#case-studies" className="pres-link">[03 // CASE STUDIES]</a>
-            <a href="#skills" className="pres-link">[04 // STACK]</a>
-            <a href="#contact" className="pres-link">[05 // CONTACT]</a>
-          </div>
-        </div>
+      <div style={{ visibility: isLoading ? 'hidden' : 'visible' }}>
+        <Header theme={theme} onToggleTheme={toggleTheme} />
 
-        {/* Dual Canvas Presentation Grid matching the reference screenshot */}
-        <div className="dual-canvas-grid">
-          {/* =========================================================================
-              CANVAS 1 / LEFT PANE: BRANDING, HERO, PORTRAIT, SELECTED PROJECTS, LOGS
-              ========================================================================= */}
-          <section className="canvas-panel canvas-left" id="panel-overview">
-            <Header />
+        <main>
+          <Hero onScrollToProjects={handleScrollToProjects} />
 
-            <Hero onExploreClick={handleScrollToProjects} />
+          <div className="section-divider" />
 
-            <SelectedProjects
-              projects={projects}
-              onSelectProject={setSelectedProject}
-              onViewAllClick={handleScrollToCaseStudies}
-            />
+          <ProjectsSection
+            projects={projects}
+            onSelectProject={setSelectedProject}
+          />
 
-            <SystemLogAndStack />
+          <div className="section-divider" />
 
-            <div className="panel-subfooter">
-              <span>© {new Date().getFullYear()} GAJENDRA PARDHI. ALL RIGHTS RESERVED.</span>
-              <span className="text-emerald">BASED IN NAGPUR, INDIA •</span>
-            </div>
-          </section>
+          <ExperienceSection />
 
-          {/* =========================================================================
-              CANVAS 2 / RIGHT PANE: CASE STUDIES, TECHNICAL SKILLS, RADAR CTA, FOOTER
-              ========================================================================= */}
-          <section className="canvas-panel canvas-right" id="panel-details">
-            <CaseStudies
-              projects={projects}
-              onSelectProject={setSelectedProject}
-            />
+          <div className="section-divider" />
 
-            <SkillsSection />
+          <SkillsSection />
 
-            <CtaSection />
+          <div className="section-divider" />
 
-            <Footer />
-          </section>
-        </div>
+          <EducationSection />
 
-        {/* Interactive Project Detail Dialog */}
-        <ProjectDetailModal
-          project={selectedProject}
-          onClose={() => setSelectedProject(null)}
-        />
+          <div className="section-divider" />
+
+          <ContactSection />
+        </main>
+
+        <Footer />
       </div>
+
+      <ProjectDetailModal
+        project={selectedProject}
+        onClose={() => setSelectedProject(null)}
+      />
     </>
   );
 };

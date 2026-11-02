@@ -68,7 +68,7 @@ export const CtaSection: React.FC = () => {
                 <span className="link-icon">✉</span> gajendraspardhi@gmail.com
               </a>
               <a href="tel:+919579451647" className="contact-link">
-                <span className="link-icon">✆</span> +91 9579451647
+                <span className="link-icon">✆</span> +91 95XXXXX647
               </a>
               <a
                 href="https://linkedin.com/in/gajendra-pardhi-47916b208"

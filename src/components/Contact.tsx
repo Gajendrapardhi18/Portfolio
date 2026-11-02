@@ -20,7 +20,7 @@ const Contact: React.FC = () => {
         <div className="contact-card">
           <p className="contact-label">// phone</p>
           <p className="contact-value">
-            <a href="tel:+919579451647">+91 9579451647</a>
+            <a href="tel:+919579451647">+91 95XXXXX647</a>
           </p>
         </div>
         <div className="contact-card">

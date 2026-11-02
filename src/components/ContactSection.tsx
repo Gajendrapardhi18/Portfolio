@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { ResumeType } from '../data/resumes';
 
 interface FormData {
   fullName: string;
@@ -14,7 +15,11 @@ interface FormErrors {
   message?: string;
 }
 
-export const ContactSection: React.FC = () => {
+interface ContactSectionProps {
+  onResumePreview?: (type: ResumeType) => void;
+}
+
+export const ContactSection: React.FC<ContactSectionProps> = ({ onResumePreview }) => {
   const [formData, setFormData] = useState<FormData>({
     fullName: '',
     email: '',
@@ -25,7 +30,6 @@ export const ContactSection: React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [touched, setTouched] = useState<Record<string, boolean>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submittedWhatsAppUrl, setSubmittedWhatsAppUrl] = useState<string | null>(null);
 
   // Validate form fields
   const validateField = (name: keyof FormData, value: string): string | undefined => {
@@ -112,8 +116,6 @@ export const ContactSection: React.FC = () => {
     const encodedMessage = encodeURIComponent(formattedMessage);
     const whatsappUrl = `https://wa.me/919579451647?text=${encodedMessage}`;
 
-    setSubmittedWhatsAppUrl(whatsappUrl);
-
     // Open WhatsApp in new tab / app
     try {
       window.open(whatsappUrl, '_blank', 'noopener,noreferrer');
@@ -122,13 +124,6 @@ export const ContactSection: React.FC = () => {
     }
 
     setIsSubmitting(false);
-  };
-
-  const handleClearForm = () => {
-    setFormData({ fullName: '', email: '', subject: '', message: '' });
-    setErrors({});
-    setTouched({});
-    setSubmittedWhatsAppUrl(null);
   };
 
   const directWhatsAppUrl = `https://wa.me/919579451647?text=${encodeURIComponent(
@@ -207,24 +202,26 @@ export const ContactSection: React.FC = () => {
               </a>
             </div>
 
-            {/* Resume Downloads */}
+            {/* Resume Previews */}
             <div className="contact-resume-box">
               <span className="contact-resume-title">Curriculum Vitae</span>
               <div className="contact-resume-btns">
-                <a
-                  href={`${import.meta.env.BASE_URL}.NET_Resume.pdf`}
-                  download
+                <button
+                  type="button"
+                  onClick={() => onResumePreview?.('dotnet')}
                   className="btn btn-outline btn-sm"
+                  aria-label="Preview .NET Developer Resume"
                 >
-                  .NET Core CV ↓
-                </a>
-                <a
-                  href={`${import.meta.env.BASE_URL}Flutter_Resume.pdf`}
-                  download
+                  .NET Core CV
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onResumePreview?.('flutter')}
                   className="btn btn-ghost btn-sm"
+                  aria-label="Preview Flutter Developer Resume"
                 >
-                  Flutter CV ↓
-                </a>
+                  Flutter CV
+                </button>
               </div>
             </div>
           </div>
@@ -237,40 +234,6 @@ export const ContactSection: React.FC = () => {
                 Fill in your details below. Submitting will prepare your message and open WhatsApp
                 with one click.
               </p>
-
-              {/* Status Banner when submitted */}
-              {submittedWhatsAppUrl && (
-                <div className="whatsapp-notice-banner" role="status" aria-live="polite">
-                  <div className="notice-header">
-                    <span className="notice-icon">💬</span>
-                    <strong>Action Required: Press "Send" in WhatsApp</strong>
-                  </div>
-                  <p className="notice-desc">
-                    WhatsApp has been opened with your pre-filled enquiry. Please tap the{' '}
-                    <strong>Send button</strong> inside WhatsApp to deliver your message.
-                  </p>
-                  <p className="notice-disclaimer">
-                    <em>Note: Opening WhatsApp does not mean the message was sent automatically. Your form details are preserved below.</em>
-                  </p>
-                  <div className="notice-actions">
-                    <a
-                      href={submittedWhatsAppUrl}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="btn-notice-resend"
-                    >
-                      Reopen WhatsApp →
-                    </a>
-                    <button
-                      type="button"
-                      onClick={handleClearForm}
-                      className="btn-notice-clear"
-                    >
-                      Clear Form
-                    </button>
-                  </div>
-                </div>
-              )}
 
               <form onSubmit={handleSubmit} noValidate className="contact-form">
                 {/* Full Name */}
@@ -377,8 +340,16 @@ export const ContactSection: React.FC = () => {
                   )}
                 </div>
 
-                {/* Submit Button */}
+                {/* Submit Button & Informational Note */}
                 <div className="form-submit-row">
+                  <p className="form-info-note">
+                    <span className="info-note-icon">ℹ</span>
+                    <span>
+                      WhatsApp will open with your enquiry prefilled. Press Send in WhatsApp to submit
+                      your message.
+                    </span>
+                  </p>
+
                   <button
                     type="submit"
                     className="btn btn-primary btn-submit-wa"

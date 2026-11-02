@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import { ThemeToggle } from './ThemeToggle';
+import { ResumeType } from '../data/resumes';
 
 interface Props {
   theme: 'light' | 'dark';
   onToggleTheme: () => void;
+  onResumePreview: (type: ResumeType) => void;
 }
 
-export const Header: React.FC<Props> = ({ theme, onToggleTheme }) => {
+export const Header: React.FC<Props> = ({ theme, onToggleTheme, onResumePreview }) => {
   const [mobileOpen, setMobileOpen] = useState(false);
-  const base = import.meta.env.BASE_URL;
 
   const handleNavClick = () => setMobileOpen(false);
 
@@ -34,12 +35,22 @@ export const Header: React.FC<Props> = ({ theme, onToggleTheme }) => {
           {/* Desktop Actions: Theme Toggle + Resume Downloads */}
           <div className="header-actions">
             <ThemeToggle theme={theme} onToggle={onToggleTheme} />
-            <a href={`${base}.NET_Resume.pdf`} download className="btn btn-ghost btn-sm">
-              .NET CV ↓
-            </a>
-            <a href={`${base}Flutter_Resume.pdf`} download className="btn btn-outline btn-sm">
-              Flutter CV ↓
-            </a>
+            <button
+              type="button"
+              onClick={() => onResumePreview('dotnet')}
+              className="btn btn-ghost btn-sm"
+              aria-label="Preview .NET Developer Resume"
+            >
+              .NET CV
+            </button>
+            <button
+              type="button"
+              onClick={() => onResumePreview('flutter')}
+              className="btn btn-outline btn-sm"
+              aria-label="Preview Flutter Developer Resume"
+            >
+              Flutter CV
+            </button>
           </div>
 
           {/* Mobile Right Controls: Theme Toggle + Hamburger */}
@@ -66,12 +77,28 @@ export const Header: React.FC<Props> = ({ theme, onToggleTheme }) => {
           <a href="#education" className="mobile-nav-link" onClick={handleNavClick}>Education</a>
           <a href="#contact" className="mobile-nav-link" onClick={handleNavClick}>Contact</a>
           <div className="mobile-nav-actions">
-            <a href={`${base}.NET_Resume.pdf`} download className="btn btn-ghost btn-sm">
-              .NET CV ↓
-            </a>
-            <a href={`${base}Flutter_Resume.pdf`} download className="btn btn-outline btn-sm">
-              Flutter CV ↓
-            </a>
+            <button
+              type="button"
+              onClick={() => {
+                onResumePreview('dotnet');
+                setMobileOpen(false);
+              }}
+              className="btn btn-ghost btn-sm"
+              aria-label="Preview .NET Developer Resume"
+            >
+              .NET CV
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                onResumePreview('flutter');
+                setMobileOpen(false);
+              }}
+              className="btn btn-outline btn-sm"
+              aria-label="Preview Flutter Developer Resume"
+            >
+              Flutter CV
+            </button>
           </div>
         </nav>
       </div>

@@ -1,6 +1,11 @@
 import React from 'react';
+import { ResumeType } from '../data/resumes';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onResumePreview?: (type: ResumeType) => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onResumePreview }) => {
   const year = new Date().getFullYear();
 
   return (
@@ -34,20 +39,22 @@ export const Footer: React.FC = () => {
             <a href="mailto:gajendraspardhi@gmail.com" className="footer-link">
               Email
             </a>
-            <a
-              href={`${import.meta.env.BASE_URL}.NET_Resume.pdf`}
-              download
+            <button
+              type="button"
+              onClick={() => onResumePreview?.('dotnet')}
               className="footer-link"
+              aria-label="Preview .NET Developer Resume"
             >
               .NET CV
-            </a>
-            <a
-              href={`${import.meta.env.BASE_URL}Flutter_Resume.pdf`}
-              download
+            </button>
+            <button
+              type="button"
+              onClick={() => onResumePreview?.('flutter')}
               className="footer-link"
+              aria-label="Preview Flutter Developer Resume"
             >
               Flutter CV
-            </a>
+            </button>
           </div>
         </div>
       </div>

@@ -1,11 +1,13 @@
 import React from 'react';
 import { InteractivePortrait } from './InteractivePortrait';
+import { ResumeType } from '../data/resumes';
 
 interface Props {
   onScrollToProjects: () => void;
+  onResumePreview: (type: ResumeType) => void;
 }
 
-export const Hero: React.FC<Props> = ({ onScrollToProjects }) => {
+export const Hero: React.FC<Props> = ({ onScrollToProjects, onResumePreview }) => {
   const base = import.meta.env.BASE_URL;
 
   return (
@@ -42,12 +44,22 @@ export const Hero: React.FC<Props> = ({ onScrollToProjects }) => {
               <button onClick={onScrollToProjects} className="btn btn-primary">
                 View Projects →
               </button>
-              <a href={`${base}.NET_Resume.pdf`} download className="btn btn-outline">
-                Download .NET CV ↓
-              </a>
-              <a href={`${base}Flutter_Resume.pdf`} download className="btn btn-ghost">
-                Download Flutter CV ↓
-              </a>
+              <button
+                type="button"
+                onClick={() => onResumePreview('dotnet')}
+                className="btn btn-outline"
+                aria-label="Preview .NET Developer Resume"
+              >
+                Preview .NET CV
+              </button>
+              <button
+                type="button"
+                onClick={() => onResumePreview('flutter')}
+                className="btn btn-ghost"
+                aria-label="Preview Flutter Developer Resume"
+              >
+                Preview Flutter CV
+              </button>
             </div>
 
             <div className="hero-meta-row">

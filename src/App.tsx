@@ -10,6 +10,8 @@ import { EducationSection } from './components/EducationSection';
 import { ContactSection } from './components/ContactSection';
 import { Footer } from './components/Footer';
 import { ProjectDetailModal } from './components/ProjectDetailModal';
+import { ResumePreviewModal } from './components/ResumePreviewModal';
+import { RESUMES, ResumeData, ResumeType } from './data/resumes';
 import './styles/global.css';
 
 const getInitialTheme = (): 'light' | 'dark' => {
@@ -26,6 +28,7 @@ const getInitialTheme = (): 'light' | 'dark' => {
 export const App: React.FC = () => {
   const [theme, setTheme] = useState<'light' | 'dark'>(getInitialTheme);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
+  const [previewResume, setPreviewResume] = useState<ResumeData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
 
   // Apply theme to html root and persist in localStorage
@@ -84,15 +87,26 @@ export const App: React.FC = () => {
     if (el) el.scrollIntoView({ behavior: 'smooth' });
   };
 
+  const handleResumePreview = (type: ResumeType) => {
+    setPreviewResume(RESUMES[type]);
+  };
+
   return (
     <>
       {isLoading && <Preloader theme={theme} onComplete={() => setIsLoading(false)} />}
 
       <div style={{ visibility: isLoading ? 'hidden' : 'visible' }}>
-        <Header theme={theme} onToggleTheme={toggleTheme} />
+        <Header
+          theme={theme}
+          onToggleTheme={toggleTheme}
+          onResumePreview={handleResumePreview}
+        />
 
         <main>
-          <Hero onScrollToProjects={handleScrollToProjects} />
+          <Hero
+            onScrollToProjects={handleScrollToProjects}
+            onResumePreview={handleResumePreview}
+          />
 
           <div className="section-divider" />
 
@@ -115,15 +129,20 @@ export const App: React.FC = () => {
 
           <div className="section-divider" />
 
-          <ContactSection />
+          <ContactSection onResumePreview={handleResumePreview} />
         </main>
 
-        <Footer />
+        <Footer onResumePreview={handleResumePreview} />
       </div>
 
       <ProjectDetailModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}
+      />
+
+      <ResumePreviewModal
+        resume={previewResume}
+        onClose={() => setPreviewResume(null)}
       />
     </>
   );

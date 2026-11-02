@@ -1,6 +1,11 @@
 import React from 'react';
+import { ResumeType } from '../data/resumes';
 
-const Contact: React.FC = () => {
+interface ContactProps {
+  onResumePreview?: (type: ResumeType) => void;
+}
+
+const Contact: React.FC<ContactProps> = ({ onResumePreview }) => {
   return (
     <section id="contact" className="section">
       <div className="section-header">
@@ -37,14 +42,24 @@ const Contact: React.FC = () => {
         </div>
       </div>
 
-      {/* Resume downloads */}
+      {/* Resume previews */}
       <div className="resume-row">
-        <a href={`${import.meta.env.BASE_URL}.NET_Resume.pdf`} download className="btn btn-secondary">
-          ↓ .NET Developer Resume
-        </a>
-        <a href={`${import.meta.env.BASE_URL}Flutter_Resume.pdf`} download className="btn btn-secondary">
-          ↓ Flutter Developer Resume
-        </a>
+        <button
+          type="button"
+          onClick={() => onResumePreview?.('dotnet')}
+          className="btn btn-secondary"
+          aria-label="Preview .NET Developer Resume"
+        >
+          .NET Developer Resume
+        </button>
+        <button
+          type="button"
+          onClick={() => onResumePreview?.('flutter')}
+          className="btn btn-secondary"
+          aria-label="Preview Flutter Developer Resume"
+        >
+          Flutter Developer Resume
+        </button>
       </div>
     </section>
   );

@@ -29,4 +29,5 @@ Thumbs.db
 # Verification screenshots & test scripts
 /*.png
 src/scripts/
+scratch/
 
